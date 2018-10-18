@@ -11,7 +11,7 @@ describe Metaforce::Reporters::DeployReporter do
     it 'prints the failure' do
       reporter.should_receive(:say).with('  stack trace:', :red)
       reporter.should_receive(:say).with('     message')
-      reporter.should_receive(:say).with
+      reporter.should_receive(:say).with(no_args)
       reporter.failed(failure)
     end
   end
@@ -65,7 +65,7 @@ describe Metaforce::Reporters::DeployReporter do
           reporter.report_failed_tests
         end
       end
-      
+
       context 'passed as an array' do
         let(:failures) { [{ stack_trace: 'stack trace', message: 'message' }, { stack_trace: 'stack trace 2', message: 'message 2' }] }
         let(:num_failures) { '2' }
@@ -113,12 +113,12 @@ describe Metaforce::Reporters::DeployReporter do
 
     context 'when there are failures' do
       let(:num_failures) { '5' }
-      it { should be_true }
+      it { should be_truthy }
     end
 
     context 'when there are no failures' do
       let(:num_failures) { '0' }
-      it { should be_false }
+      it { should be_falsey }
     end
   end
 end

@@ -18,6 +18,7 @@ describe Metaforce::Client do
     %w[services metadata].each do |type|
       context "when the #{type} client responds to method" do
         it 'proxies to the method' do
+          client.send(type.to_sym).should_receive(:respond_to?).with(:foobar).at_most(2).times.and_return(true)
           client.send(type.to_sym).should_receive(:respond_to?).with(:foobar, false).and_return(true)
           client.send(type.to_sym).should_receive(:foobar)
           client.foobar
