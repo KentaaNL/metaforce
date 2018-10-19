@@ -8,7 +8,8 @@ describe Metaforce::Metadata::Client do
   describe '.list_metadata' do
     context 'with a single symbol' do
       before do
-        savon.expects(:list_metadata).with(:queries => [{:type => 'ApexClass'}]).returns(:objects)
+        body = File.read("spec/fixtures/requests/list_metadata/objects.xml")
+        stub_request(:post, "https://na12-api.salesforce.com/services/Soap/u/23.0/00DU0000000Ilbh").to_return(status: 200, body: body)
       end
 
       subject { client.list_metadata(:apex_class) }
@@ -17,7 +18,8 @@ describe Metaforce::Metadata::Client do
 
     context 'with a single string' do
       before do
-        savon.expects(:list_metadata).with(:queries => [{:type => 'ApexClass'}]).returns(:objects)
+        body = File.read("spec/fixtures/requests/list_metadata/objects.xml")
+        stub_request(:post, "https://na12-api.salesforce.com/services/Soap/u/23.0/00DU0000000Ilbh").to_return(status: 200, body: body)
       end
 
       subject { client.list_metadata('ApexClass') }
@@ -28,7 +30,8 @@ describe Metaforce::Metadata::Client do
   describe '.describe' do
     context 'with no version' do
       before do
-        savon.expects(:describe_metadata).with(nil).returns(:success)
+        body = File.read("spec/fixtures/requests/describe_metadata/success.xml")
+        stub_request(:post, "https://na12-api.salesforce.com/services/Soap/u/23.0/00DU0000000Ilbh").to_return(status: 200, body: body)
       end
 
       subject { client.describe }
@@ -37,7 +40,8 @@ describe Metaforce::Metadata::Client do
 
     context 'with a version' do
       before do
-        savon.expects(:describe_metadata).with(:api_version => '18.0').returns(:success)
+        body = File.read("spec/fixtures/requests/describe_metadata/success.xml")
+        stub_request(:post, "https://na12-api.salesforce.com/services/Soap/u/23.0/00DU0000000Ilbh").to_return(status: 200, body: body)
       end
 
       subject { client.describe('18.0') }
@@ -48,7 +52,8 @@ describe Metaforce::Metadata::Client do
   describe '.status' do
     context 'with a single id' do
       before do
-        savon.expects(:check_status).with(:ids => ['1234']).returns(:done)
+        body = File.read("spec/fixtures/requests/check_status/done.xml")
+        stub_request(:post, "https://na12-api.salesforce.com/services/Soap/u/23.0/00DU0000000Ilbh").to_return(status: 200, body: body)
       end
 
       subject { client.status '1234' }
@@ -58,7 +63,8 @@ describe Metaforce::Metadata::Client do
 
   describe '._deploy' do
     before do
-      savon.expects(:deploy).with(:zip_file => 'foobar', :deploy_options => {}).returns(:in_progress)
+      body = File.read("spec/fixtures/requests/deploy/in_progress.xml")
+      stub_request(:post, "https://na12-api.salesforce.com/services/Soap/u/23.0/00DU0000000Ilbh").to_return(status: 200, body: body)
     end
 
     subject { client._deploy('foobar') }
@@ -74,7 +80,8 @@ describe Metaforce::Metadata::Client do
     let(:options) { double('options') }
 
     before do
-      savon.expects(:retrieve).with(:retrieve_request => options).returns(:in_progress)
+      body = File.read("spec/fixtures/requests/retrieve/in_progress.xml")
+      stub_request(:post, "https://na12-api.salesforce.com/services/Soap/u/23.0/00DU0000000Ilbh").to_return(status: 200, body: body)
     end
 
     subject { client._retrieve(options) }
@@ -94,7 +101,8 @@ describe Metaforce::Metadata::Client do
 
   describe '._create' do
     before do
-      savon.expects(:create).with(:metadata => [{:full_name => 'component', :label => 'test', :content => "Zm9vYmFy\n"}], :attributes! => {'ins0:metadata' => {'xsi:type' => 'ins0:ApexComponent'}}).returns(:in_progress)
+      body = File.read("spec/fixtures/requests/create/in_progress.xml")
+      stub_request(:post, "https://na12-api.salesforce.com/services/Soap/u/23.0/00DU0000000Ilbh").to_return(status: 200, body: body)
     end
 
     subject { client._create(:apex_component, :full_name => 'component', :label => 'test', :content => 'foobar') }
@@ -104,7 +112,8 @@ describe Metaforce::Metadata::Client do
   describe '._delete' do
     context 'with a single name' do
       before do
-        savon.expects(:delete).with(:metadata => [{:full_name => 'component'}], :attributes! => {'ins0:metadata' => {'xsi:type' => 'ins0:ApexComponent'}}).returns(:in_progress)
+        body = File.read("spec/fixtures/requests/delete/in_progress.xml")
+        stub_request(:post, "https://na12-api.salesforce.com/services/Soap/u/23.0/00DU0000000Ilbh").to_return(status: 200, body: body)
       end
 
       subject { client._delete(:apex_component, 'component') }
@@ -113,7 +122,8 @@ describe Metaforce::Metadata::Client do
 
     context 'with multiple' do
       before do
-        savon.expects(:delete).with(:metadata => [{:full_name => 'component1'}, {:full_name => 'component2'}], :attributes! => {'ins0:metadata' => {'xsi:type' => 'ins0:ApexComponent'}}).returns(:in_progress)
+        body = File.read("spec/fixtures/requests/delete/in_progress.xml")
+        stub_request(:post, "https://na12-api.salesforce.com/services/Soap/u/23.0/00DU0000000Ilbh").to_return(status: 200, body: body)
       end
 
       subject { client._delete(:apex_component, 'component1', 'component2') }
@@ -123,7 +133,8 @@ describe Metaforce::Metadata::Client do
 
   describe '._update' do
     before do
-      savon.expects(:update).with(:metadata => {:current_name => 'old_component', :metadata => [{:full_name => 'component', :label => 'test', :content => "Zm9vYmFy\n"}], :attributes! => {:metadata => {'xsi:type' => 'ins0:ApexComponent'}}}).returns(:in_progress)
+      body = File.read("spec/fixtures/requests/update/in_progress.xml")
+      stub_request(:post, "https://na12-api.salesforce.com/services/Soap/u/23.0/00DU0000000Ilbh").to_return(status: 200, body: body)
     end
 
     subject { client._update(:apex_component, 'old_component', :full_name => 'component', :label => 'test', :content => 'foobar') }

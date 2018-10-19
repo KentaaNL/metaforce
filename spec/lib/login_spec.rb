@@ -5,7 +5,8 @@ describe Metaforce::Login do
 
   describe '.login' do
     before do
-      savon.expects(:login).with(:username => 'foo', :password => 'barwhizbang').returns(:success)
+      body = File.read("spec/fixtures/requests/login/success.xml")
+      stub_request(:post, "https://login.salesforce.com/services/Soap/u/30.0").to_return(status: 200, body: body)
     end
 
     subject { klass.login }
