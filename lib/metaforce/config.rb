@@ -31,7 +31,7 @@ module Metaforce
   end
 
   class Configuration
-    # The Salesforce API version to use. Defaults to 23.0
+    # The Salesforce API version to use. Defaults to 30.0
     attr_accessor :api_version
     # The username to use during login.
     attr_accessor :username
@@ -85,7 +85,9 @@ module Metaforce
       File.join(wsdl, 'metadata.xml')
     end
 
-    def endpoint
+    def endpoint(options = {})
+      host = options[:host] || Metaforce.configuration.host
+
       "https://#{host}/services/Soap/u/#{api_version}"
     end
 
