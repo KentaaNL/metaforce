@@ -23,7 +23,7 @@ module Metaforce
     def client
       @client ||= Savon.client(Metaforce.configuration.partner_wsdl) do |wsdl|
         wsdl.endpoint = Metaforce.configuration.endpoint
-      end.tap { |client| client.http.auth.ssl.verify_mode = :none }
+      end.tap { |client| client.http.auth.ssl.verify_mode = :peer }
     end
 
     # Internal: Usernamed passed in from options.

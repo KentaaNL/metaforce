@@ -28,7 +28,7 @@ module Metaforce
         wsdl.endpoint = endpoint
       end.tap do |client|
         client.config.soap_header = soap_headers
-        client.http.auth.ssl.verify_mode = :none
+        client.http.auth.ssl.verify_mode = :peer
       end
     end
 
