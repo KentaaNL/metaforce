@@ -110,7 +110,6 @@ module Metaforce
         credentials[:password] ||= ask('password:')
         credentials[:security_token] ||= ask('security token:')
       end
-      Metaforce.configuration.host = credentials[:host]
       Metaforce.new credentials
     end
 

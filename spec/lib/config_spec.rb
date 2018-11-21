@@ -8,5 +8,7 @@ describe Metaforce do
     it { should set_default(:endpoint).to('https://login.salesforce.com/services/Soap/u/30.0') }
     it { should set_default(:partner_wsdl).to(File.expand_path('../../../wsdl/30.0/partner.xml', __FILE__)) }
     it { should set_default(:metadata_wsdl).to(File.expand_path('../../../wsdl/30.0/metadata.xml', __FILE__)) }
+
+    it { expect(Metaforce.configuration.endpoint(host: 'test.salesforce.com')).to eq('https://test.salesforce.com/services/Soap/u/30.0') }
   end
 end

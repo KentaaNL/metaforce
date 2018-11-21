@@ -22,13 +22,14 @@ module Metaforce
       Client.new(*args)
     end
 
-    # Performs a login and retrurns the session
+    # Performs a login and returns the session
     def login(options={})
       options = HashWithIndifferentAccess.new(options)
       username       = options.fetch(:username, ENV['SALESFORCE_USERNAME'])
       password       = options.fetch(:password, ENV['SALESFORCE_PASSWORD'])
       security_token = options.fetch(:security_token, ENV['SALESFORCE_SECURITY_TOKEN'])
-      Login.new(username, password, security_token).login
+      host           = options.fetch(:host, ENV['SALESFORCE_HOST'])
+      Login.new(username, password, security_token, host).login
     end
   end
 end
