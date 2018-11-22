@@ -16,9 +16,7 @@ module Metaforce
         #   #=> ["ContractContactRole", "Solution", "Invoice_Statements__c", ... ]
         def list_metadata(*args)
           queries = args.map(&:to_s).map(&:camelize).map { |t| {:type => t} }
-          request :list_metadata do |soap|
-            soap.body = { :queries => queries }
-          end
+          request :list_metadata, message: { :queries => queries }
         end
 
         # Public: Describe the organization's metadata.
@@ -31,9 +29,9 @@ module Metaforce
         #   client.describe.metadata_objects.collect { |t| t.xml_name }
         #   #=> ["CustomLabels", "StaticResource", "Scontrol", "ApexComponent", ... ]
         def describe(version=nil)
-          request :describe_metadata do |soap|
-            soap.body = { :api_version => version } unless version.nil?
-          end
+          message = {}
+          message.merge!(:api_version => version) unless version.nil?
+          request :describe_metadata, :message => message
         end
 
         # Public: Checks the status of an async result.
@@ -42,37 +40,31 @@ module Metaforce
         # type - either :deploy or :retrieve
         #
         # Examples
-        # 
+        #
         #   client.status('04sU0000000Wx6KIAS')
         #   #=> {:done=>true, :id=>"04sU0000000Wx6KIAS", :state=>"Completed", ...}
         def status(ids, type=nil)
           method = :check_status
           method = :"check_#{type}_status" if type
           ids = [ids] unless ids.respond_to?(:each)
-          request method do |soap|
-            soap.body = { :ids => ids }
-          end
+          request method, message: { :ids => ids }
         end
 
         # Public: Deploy code to Salesforce.
         #
         # zip_file - The base64 encoded contents of the zip file.
         # options  - Hash of DeployOptions.
-        # 
+        #
         # Returns the AsyncResult
         def _deploy(zip_file, options={})
-          request :deploy do |soap|
-            soap.body = { :zip_file => zip_file, :deploy_options => options }
-          end
+          request :deploy, message: { :zip_file => zip_file, :deploy_options => options }
         end
 
         # Public: Retrieve code from Salesforce.
         #
         # Returns the AsyncResult
         def _retrieve(options={})
-          request :retrieve do |soap|
-            soap.body = { :retrieve_request => options }
-          end
+          request :retrieve, message: { :retrieve_request => options }
         end
 
         # Public: Deploy code to Salesforce.

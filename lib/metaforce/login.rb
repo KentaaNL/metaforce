@@ -11,12 +11,7 @@ module Metaforce
     #
     # Returns a hash with the session id and server urls.
     def login
-      response = client.request(:login) do
-        soap.body = {
-          :username => username,
-          :password => password
-        }
-      end
+      response = client.call :login, :message => { :username => username, :password => password }
       response.body[:login_response][:result]
     end
 
@@ -24,9 +19,7 @@ module Metaforce
 
     # Internal: Savon client.
     def client
-      @client ||= Savon.client(Metaforce.configuration.partner_wsdl) do |wsdl|
-        wsdl.endpoint = Metaforce.configuration.endpoint(host: host)
-      end.tap { |client| client.http.auth.ssl.verify_mode = :peer }
+      @client ||= Savon.client(wsdl: Metaforce.configuration.partner_wsdl, endpoint: Metaforce.configuration.endpoint(host: host), ssl_verify_mode: :peer, ssl_version: :TLSv1_2, logger: Metaforce.configuration.logger, log: Metaforce.configuration.log)
     end
 
     # Internal: Usernamed passed in from options.

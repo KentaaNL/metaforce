@@ -1,7 +1,5 @@
 module Metaforce
   class << self
-    attr_writer :log
-
     # Returns the current Configuration
     #
     #    Metaforce.configuration.username = "username"
@@ -18,15 +16,6 @@ module Metaforce
     #    end
     def configure
       yield configuration
-    end
-
-    def log?
-      @log ||= false
-    end
-
-    def log(message)
-      return unless Metaforce.log?
-      Metaforce.configuration.logger.send :debug, message
     end
   end
 
@@ -51,8 +40,11 @@ module Metaforce
     # calling .perform on a job will block until completion and all callbacks
     # have run. (default: true).
     attr_accessor :threading
+    # Enable logging.
+    attr_accessor :log
 
     def initialize
+      @log = false
       @threading = false
     end
 
@@ -68,13 +60,6 @@ module Metaforce
       @authentication_handler ||= lambda { |client, options|
         Metaforce.login(options)
       }
-    end
-
-    def log=(log)
-      Savon.configure do |config|
-        config.log = log
-      end
-      HTTPI.log = log
     end
 
     def partner_wsdl
@@ -97,6 +82,11 @@ module Metaforce
 
     def logger
       @logger ||= ::Logger.new STDOUT
+    end
+
+    def logger=(logger)
+      @logger = logger
+      HTTPI.log = logger
     end
   end
 end

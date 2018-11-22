@@ -2,12 +2,12 @@ require 'bundler'
 Bundler.require :default, :development
 require 'pp'
 require 'rspec/mocks'
+require 'webmock/rspec'
 
-Dir['./spec/support/**/*.rb'].sort.each {|f| require f}
+Dir['./spec/support/**/*.rb'].sort.each { |f| require f }
 
 RSpec.configure do |config|
   config.mock_with :rspec
-  config.include Savon::Spec::Macros
 
  config.raise_errors_for_deprecations!
 
@@ -31,9 +31,3 @@ RSpec::Matchers.define :set_default do |option|
     "Expected #{option} to be set to #{@value.inspect}, got #{@actual.inspect}"
   end
 end
-
-Savon.configure do |config|
-  config.log = false
-end
-
-Savon::Spec::Fixture.path = File.join(File.dirname(__FILE__), 'fixtures/requests')
