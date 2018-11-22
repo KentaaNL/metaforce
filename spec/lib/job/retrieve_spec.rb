@@ -8,7 +8,7 @@ describe Metaforce::Job::Retrieve do
     let(:response) { Hashie::Mash.new(success: true) }
 
     before do
-      client.should_receive(:status).with(job.id, :retrieve).and_return(response)
+      expect(client).to receive(:status).with(job.id, :retrieve).and_return(response)
     end
 
     subject { job.result }
@@ -19,7 +19,7 @@ describe Metaforce::Job::Retrieve do
     let(:response) { Hashie::Mash.new(success: true, zip_file: 'foobar') }
 
     before do
-      client.should_receive(:status).with(job.id, :retrieve).and_return(response)
+      expect(client).to receive(:status).with(job.id, :retrieve).and_return(response)
     end
 
     subject { job.zip_file.bytes }

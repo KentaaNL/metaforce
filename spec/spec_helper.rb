@@ -9,9 +9,11 @@ RSpec.configure do |config|
   config.mock_with :rspec
   config.include Savon::Spec::Macros
 
+ config.raise_errors_for_deprecations!
+
   config.before(:each) do
     Metaforce.configuration.threading = false
-    Metaforce::Job.any_instance.stub(:sleep)
+    allow_any_instance_of(Metaforce::Job).to receive(:sleep)
   end
 end
 
