@@ -1,6 +1,6 @@
 # Metaforce
 
-[![Build Status](https://travis-ci.org/ejholmes/metaforce.png?branch=master)](https://travis-ci.org/ejholmes/metaforce) [![Code Climate](https://codeclimate.com/github/ejholmes/metaforce.png)](https://codeclimate.com/github/ejholmes/metaforce) [![Dependency Status](https://gemnasium.com/ejholmes/metaforce.png)](https://gemnasium.com/ejholmes/metaforce)
+[![Build Status](https://travis-ci.org/KentaaNL/metaforce.svg?branch=master)](https://travis-ci.org/KentaaNL/metaforce)
 
 Metaforce is a Ruby gem for interacting with the Salesforce [Metadata](http://www.salesforce.com/us/developer/docs/api_meta/index.htm)
 and [Services](http://www.salesforce.com/us/developer/docs/api/index.htm) APIs.
@@ -11,15 +11,11 @@ and [Services](http://www.salesforce.com/us/developer/docs/api/index.htm) APIs.
 
 Add this line to your application's Gemfile:
 
-    gem 'metaforce'
+    gem 'metaforce', github: 'KentaaNL/metaforce'
 
 And then execute:
 
     $ bundle
-
-Or install it yourself as:
-
-    $ gem install metaforce
 
 ## Usage
 
