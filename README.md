@@ -24,12 +24,10 @@ And then execute:
 #### Username and Password
 
 To initialize a new client, you call `Metaforce.new` with a hash that specifies
-the `:username`, `:password`, and `:security_token`.
+the `username`, `password`, and `security_token`.
 
 ```ruby
-client = Metaforce.new :username => 'username',
-  :password => 'password',
-  :security_token => 'security token'
+client = Metaforce.new(username: 'username', password: 'password', security_token: 'security token')
 ```
 
 Or you can specify the username, password and security token with environment
@@ -44,6 +42,15 @@ export SALESFORCE_SECURITY_TOKEN="security token"
 ```ruby
 client = Metaforce.new
 ```
+
+You can connect to the sandbox environment by setting the parameter `host`. The default host is 'login.salesforce.com'.
+
+```ruby
+client = Metaforce.new(host: 'test.salesforce.com')
+```
+
+Or set the environment variable `SALESFORCE_HOST`.
+
 
 #### Asynchronous Tasks
 
