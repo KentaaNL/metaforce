@@ -10,9 +10,6 @@ Gem::Specification.new do |s|
   s.homepage    = 'https://github.com/KentaaNL/metaforce'
   s.summary     = %q{A Ruby gem for interacting with the Salesforce Metadata API}
   s.description = %q{A Ruby gem for interacting with the Salesforce Metadata API}
-  s.post_install_message = <<-EOL
-Warning! Metaforce 1.0.x is a complete rewrite and is not backwards compatible with 0.5.x
-EOL
 
   s.files         = `git ls-files`.split("\n")
   s.test_files    = `git ls-files -- {test,spec,features}/*`.split("\n")
