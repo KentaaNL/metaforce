@@ -46,7 +46,7 @@ module Metaforce
     #
     #   job.success?
     #   # => true
-    # 
+    #
     # Returns true or false based on the DeployResult.
     def success?
       result.success
@@ -76,7 +76,7 @@ module Metaforce
       path = Dir.mktmpdir
       File.join(path, 'deploy.zip').tap do |path|
         Zip::File.open(path, Zip::File::CREATE) do |zip|
-          Dir["#{@path}/**/**"].each do |file|
+          Dir["#{@path}/**/**"].sort.each do |file|
             zip.add(file.sub("#{File.dirname(@path)}/", ''), file)
           end
         end

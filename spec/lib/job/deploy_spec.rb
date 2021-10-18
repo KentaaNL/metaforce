@@ -20,7 +20,7 @@ describe Metaforce::Job::Deploy do
 
     context 'when the path is a directory' do
       before do
-        expect(client).to receive(:_deploy).with(/.*YqQvZkq.*/, {}).and_return(Hashie::Mash.new(id: '1234'))
+        expect(client).to receive(:_deploy).with(/.*QCnEwT7ADG68L.*/, {}).and_return(Hashie::Mash.new(id: '1234'))
         expect(client).to receive(:status).at_least(1).times.and_return(Hashie::Mash.new(done: true, state: 'Completed'))
       end
 
