@@ -7,3 +7,5 @@ deploy.zip
 retrieve.zip
 test.rb
 .metaforce.yml
+.ruby-version
+.ruby-gemset
