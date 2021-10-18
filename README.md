@@ -1,6 +1,6 @@
 # Metaforce
 
-[![Build Status](https://travis-ci.org/KentaaNL/metaforce.svg?branch=master)](https://travis-ci.org/KentaaNL/metaforce)
+[![Build Status](https://github.com/KentaaNL/metaforce/actions/workflows/test.yml/badge.svg)](https://github.com/KentaaNL/metaforce/actions)
 
 Metaforce is a Ruby gem for interacting with the Salesforce [Metadata](http://www.salesforce.com/us/developer/docs/api_meta/index.htm)
 and [Services](http://www.salesforce.com/us/developer/docs/api/index.htm) APIs.
