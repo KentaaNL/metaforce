@@ -76,9 +76,8 @@ module Metaforce
     def unzip(source, destination)
       Zip::File.open(source) do |zip|
         zip.each do |f|
-          path = File.join(destination, f.name)
-          FileUtils.mkdir_p(File.dirname(path))
-          zip.extract(f, path) { true }
+          FileUtils.mkdir_p(File.join(destination, File.dirname(f.name)))
+          zip.extract(f, destination_directory: destination) { true }
         end
       end
     end
