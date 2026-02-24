@@ -19,7 +19,7 @@ Gem::Specification.new do |s|
   s.add_dependency 'savon', '>= 2.0', '< 3.0'
   s.add_dependency 'rubyzip', '~> 1.0'
   s.add_dependency 'activesupport'
-  s.add_dependency 'hashie', '< 4.0', '>= 1.2.0'
+  s.add_dependency 'hashie', '>= 1.2.0', '< 6.0'
   s.add_dependency 'thor', '~> 1.2'
   s.add_dependency 'listen', '>= 3.0.0'
   s.add_dependency 'rb-fsevent', '~> 0.9', '>= 0.9.4'
