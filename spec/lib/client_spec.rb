@@ -35,6 +35,6 @@ describe Metaforce::Client do
 
   describe '.inspect' do
     subject { client.inspect }
-    it { should eq '#<Metaforce::Client @options={:session_id=>"foobar"}>' }
+    it { should eq '#<Metaforce::Client @options={session_id: "foobar"}>' }
   end
 end
